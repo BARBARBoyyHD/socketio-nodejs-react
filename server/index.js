@@ -22,8 +22,10 @@ io.on("connection",(socket)=>{
     })
 
     const wordText = "hello from Server"
+    const studentList = [{name:"Ankit",id:"1"},{name:"Nitin",id:"2"}]
 
     socket.emit("word",wordText)
+    socket.emit("student",studentList)
 
 })
 

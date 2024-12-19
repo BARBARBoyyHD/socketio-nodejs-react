@@ -8,7 +8,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [messageReceive, setMessageReceive] = useState("");
   const [word, setWord] = useState("");
-
+  const [studentList, setStudentList] = useState([]);
   const sendMessage = () => {
     socket.emit("send_message", { message });
   };
@@ -24,10 +24,16 @@ function App() {
       setWord(data); // Automatically update state when "word" event is received
     });
 
+    socket.on("student",(data)=>{
+      setStudentList(data)
+    })
+
+
     // Cleanup listeners when component unmounts
     return () => {
       socket.off("receive_message");
       socket.off("word");
+      socket.off("student")
     };
   }, []);
 
@@ -44,6 +50,17 @@ function App() {
       
       <h1>Backend:</h1>
       <p>{word}</p>
+
+      <h1>Student List :</h1>
+      <p>
+        {
+          studentList.map((student)=>(
+            <li key={student.id}>
+              {student.name} - {student.id}
+            </li>
+          ))
+        }
+      </p>
     </div>
   );
 }
