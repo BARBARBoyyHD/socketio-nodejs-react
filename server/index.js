@@ -21,6 +21,10 @@ io.on("connection",(socket)=>{
         socket.broadcast.emit("receive_message",data)
     })
 
+    const wordText = "hello from Server"
+
+    socket.emit("word",wordText)
+
 })
 
 server.listen(4001,()=>{
